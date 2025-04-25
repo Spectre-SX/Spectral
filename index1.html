@@ -2,13 +2,34 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>Spektralny</title>
+  <title>Spectral</title>
+
+  <!-- ✨ particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
   <style>
+    /* 🌌 Animowane Tło */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: #121212;
+    }
+
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       background: #121212;
       color: white;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    body.loaded {
+      opacity: 1;
     }
 
     nav {
@@ -16,7 +37,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 50px;
-      background: #121212;
+      background: transparent;
     }
 
     nav a {
@@ -108,24 +129,30 @@
       cursor: pointer;
       font-weight: bold;
       transition: background 0.3s;
+      margin-left: 15px;
     }
 
     .lang-btn:hover {
       background: #555;
     }
+
   </style>
 </head>
 <body>
 
+<!-- 🌌 Tło Cząsteczek -->
+<div id="particles-js"></div>
+
+<!-- 🧭 Pasek Nawigacyjny -->
 <nav>
-  <div class="logo">✨ Spektralny</div>
+  <div class="logo">✨ Spectral</div>
   <div class="links">
-    <a href="index1.html">Strona Główna</a>
-    <a href="help1.html">Pomoc</a>
-    <a href="executor1.html">Inne</a>
-    <a href="download1.html" class="active">Pobierz</a>
-    <a href="credits1.html">Twórcy</a>
-    <a href="donate1.html">Wspomóż</a>
+    <a href="index.html" onclick="loadPage('index.html')">Strona Główna</a>
+    <a href="help.html" onclick="loadPage('help.html')">Pomoc</a>
+    <a href="executor.html" onclick="loadPage('executor.html')">Inne</a>
+    <a href="download.html" class="active" onclick="loadPage('download.html')">Pobierz</a>
+    <a href="credits.html" onclick="loadPage('credits.html')">Podziękowania</a>
+    <a href="donate.html" onclick="loadPage('donate.html')">Darowizny</a>
   </div>
   <div class="discord-link">
     <a href="https://discord.gg/5UtAzyu8E5" target="_blank">Dołącz do Discorda</a>
@@ -135,40 +162,108 @@
   </div>
 </nav>
 
+<!-- 🦾 Bohater -->
 <section class="hero">
-  <h1>Spektralny</h1>
-  <p>Doświadcz najlepszych porad, jakie istnieją. (Polska versja nie skonczona.)</p>
+  <h1>Spectral</h1>
+  <p>Doświadcz najlepszych porad.</p>
 </section>
 
-<section class="container">
+<!-- 📦 Treść -->
+<section class="container" id="content-container">
   <div class="features">
-    <h2>Spektralny</h2>
-    <p>✨ Najnowsze aktualizacje</p>
+    <h2>Spectral</h2>
+    <p>✨ Najnowsze Aktualizacje</p>
     <div class="container" style="gap: 20px;">
       <div class="feature-item">
         <h3>Dobre Informacje</h3>
-        <p>Wypróbuj nasze najlepsze porady!</p>
+        <p>Przetestuj nasze najlepsze informacje!</p>
       </div>
       <div class="feature-item">
-        <h3>Prawdziwe Info</h3>
-        <p>Dostarczamy PRAWDZIWE informacje!</p>
+        <h3>Aktualne Informacje</h3>
+        <p>Podajemy PRAWIDŁOWE informacje!</p>
       </div>
       <div class="feature-item">
         <h3>Społeczność</h3>
-        <p>Mamy świetną społeczność! Chociaż tylko jedna osoba :(</p>
+        <p>Mamy świetną społeczność! Jedna osoba tho :(</p>
       </div>
     </div>
     <button class="download-btn">Pobierz Teraz →</button>
   </div>
 
   <div class="updates">
-    <h2>Ostatnie Aktualizacje</h2>
-    <div class="update-item">Dodano straszne porady!</div>
-    <div class="update-item">Dodano trochę skryptów 👀</div>
+    <h2>Najnowsze Aktualizacje</h2>
+    <div class="update-item">Dodano porady o horrorach!</div>
+    <div class="update-item">Dodano kilka skryptów 👀</div>
     <div class="update-item">Nie :(</div>
-    <div class="update-item">Dodano fajne strony!</div>
+    <div class="update-item">Dodano fajne strony internetowe!</div>
   </div>
 </section>
+
+<!-- 💫 Konfiguracja Cząsteczek -->
+<script>
+  particlesJS("particles-js", {
+    "particles": {
+      "number": {
+        "value": 90,
+        "density": { "enable": true, "value_area": 800 }
+      },
+      "color": { "value": "#ffffff" },
+      "shape": {
+        "type": "circle",
+        "stroke": { "width": 0, "color": "#000000" }
+      },
+      "opacity": {
+        "value": 0.2,
+        "random": true
+      },
+      "size": {
+        "value": 2.5,
+        "random": true
+      },
+      "line_linked": {
+        "enable": true,
+        "distance": 130,
+        "color": "#ffffff",
+        "opacity": 0.2,
+        "width": 1
+      },
+      "move": {
+        "enable": true,
+        "speed": 1.6,
+        "direction": "none",
+        "random": false,
+        "out_mode": "bounce"
+      }
+    },
+    "interactivity": {
+      "detect_on": "canvas",
+      "events": {
+        "onhover": { "enable": true, "mode": "grab" },
+        "onclick": { "enable": true, "mode": "push" }
+      },
+      "modes": {
+        "grab": { "distance": 140, "line_linked": { "opacity": 0.3 } },
+        "push": { "particles_nb": 4 }
+      }
+    },
+    "retina_detect": true
+  });
+
+  // JavaScript do Płynnej Zmiany Stron
+  function loadPage(page) {
+    const contentContainer = document.getElementById('content-container');
+    contentContainer.style.opacity = 0; // Zmniejszanie przezroczystości obecnej zawartości
+    
+    setTimeout(() => {
+      window.location.href = page; // Po zmniejszeniu przezroczystości, przejdź do nowej strony
+    }, 500); // Czekaj na zakończenie zmniejszania przezroczystości
+  }
+
+  // Zastosuj efekt płynnego pojawiania się po załadowaniu strony
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+  });
+</script>
 
 </body>
 </html>
