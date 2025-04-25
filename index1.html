@@ -15,7 +15,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
+      z-index: -1; /* Ensure it's behind all other content */
       background: #121212;
     }
 
@@ -135,7 +135,6 @@
     .lang-btn:hover {
       background: #555;
     }
-
   </style>
 </head>
 <body>
@@ -238,31 +237,18 @@
     "interactivity": {
       "detect_on": "canvas",
       "events": {
-        "onhover": { "enable": true, "mode": "grab" },
+        "onhover": { "enable": true, "mode": "repulse" },
         "onclick": { "enable": true, "mode": "push" }
-      },
-      "modes": {
-        "grab": { "distance": 140, "line_linked": { "opacity": 0.3 } },
-        "push": { "particles_nb": 4 }
       }
-    },
-    "retina_detect": true
+    }
   });
+</script>
 
-  // JavaScript do Płynnej Zmiany Stron
-  function loadPage(page) {
-    const contentContainer = document.getElementById('content-container');
-    contentContainer.style.opacity = 0; // Zmniejszanie przezroczystości obecnej zawartości
-    
-    setTimeout(() => {
-      window.location.href = page; // Po zmniejszeniu przezroczystości, przejdź do nowej strony
-    }, 500); // Czekaj na zakończenie zmniejszania przezroczystości
-  }
-
-  // Zastosuj efekt płynnego pojawiania się po załadowaniu strony
-  window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-  });
+<!-- 👀 Skrypty Ładowania Stron -->
+<script>
+  window.onload = function() {
+    document.body.classList.add("loaded");
+  };
 </script>
 
 </body>
