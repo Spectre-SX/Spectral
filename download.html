@@ -16,6 +16,7 @@
       color: white;
       background: #121212;
       overflow-x: hidden;
+      transition: background-color 0.3s ease; /* Smooth transition for background */
     }
 
     /* 🔥 Animated background */
@@ -43,6 +44,7 @@
       align-items: center;
       padding: 20px 50px;
       background: rgba(18, 18, 18, 0.9);
+      transition: background-color 0.3s ease; /* Smooth transition for navbar */
     }
 
     nav a {
@@ -50,26 +52,30 @@
       text-decoration: none;
       margin: 0 15px;
       font-weight: bold;
-      transition: color 0.3s;
+      transition: color 0.3s, transform 0.3s ease; /* Smooth link hover transition */
     }
 
     nav a:hover {
       color: #888;
+      transform: scale(1.1); /* Scaling effect on hover */
     }
 
     .hero {
       text-align: center;
       padding: 100px 20px 50px;
+      transition: transform 0.3s ease; /* Smooth transition for hero section */
     }
 
     .hero h1 {
       font-size: 48px;
+      transition: transform 0.3s ease;
     }
 
     .hero p {
       margin-top: 10px;
       font-size: 18px;
       color: #aaa;
+      transition: color 0.3s ease;
     }
 
     .container {
@@ -78,6 +84,7 @@
       gap: 40px;
       padding: 50px;
       flex-wrap: wrap;
+      transition: transform 0.3s ease; /* Smooth transition for container */
     }
 
     .features {
@@ -86,6 +93,7 @@
       border-radius: 15px;
       flex: 1;
       min-width: 300px;
+      transition: background 0.3s ease; /* Smooth background transition */
     }
 
     .feature-item {
@@ -94,7 +102,7 @@
       border-radius: 10px;
       flex: 1;
       text-align: center;
-      transition: transform 0.3s ease, background 0.3s ease;
+      transition: transform 0.3s ease, background 0.3s ease; /* Smooth transition on hover */
     }
 
     .feature-item:hover {
@@ -111,11 +119,12 @@
       font-size: 16px;
       margin-top: 20px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.3s ease; /* Smooth transition for button */
     }
 
     .download-btn:hover {
       background: #666;
+      transform: translateY(-5px); /* Slight upward movement on hover */
     }
 
     .lang-btn {
@@ -126,12 +135,13 @@
       padding: 10px 15px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.3s ease;
       margin-left: 15px;
     }
 
     .lang-btn:hover {
       background: #555;
+      transform: scale(1.1); /* Scaling effect on hover */
     }
   </style>
 </head>
