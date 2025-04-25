@@ -24,6 +24,12 @@
       font-family: 'Poppins', sans-serif;
       background: #121212;
       color: white;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    body.loaded {
+      opacity: 1;
     }
 
     nav {
@@ -129,6 +135,7 @@
     .lang-btn:hover {
       background: #555;
     }
+
   </style>
 </head>
 <body>
@@ -140,12 +147,12 @@
 <nav>
   <div class="logo">✨ Spectral</div>
   <div class="links">
-    <a href="index.html">Home</a>
-    <a href="help.html">Help</a>
-    <a href="executor.html">Other</a>
-    <a href="download.html" class="active">Download</a>
-    <a href="credits.html">Credits</a>
-    <a href="donate.html">Donate</a>
+    <a href="index.html" onclick="loadPage('index.html')">Home</a>
+    <a href="help.html" onclick="loadPage('help.html')">Help</a>
+    <a href="executor.html" onclick="loadPage('executor.html')">Other</a>
+    <a href="download.html" class="active" onclick="loadPage('download.html')">Download</a>
+    <a href="credits.html" onclick="loadPage('credits.html')">Credits</a>
+    <a href="donate.html" onclick="loadPage('donate.html')">Donate</a>
   </div>
   <div class="discord-link">
     <a href="https://discord.gg/5UtAzyu8E5" target="_blank">Join Discord</a>
@@ -162,7 +169,7 @@
 </section>
 
 <!-- 📦 Content -->
-<section class="container">
+<section class="container" id="content-container">
   <div class="features">
     <h2>Spectral</h2>
     <p>✨ Latest Updates</p>
@@ -240,6 +247,21 @@
       }
     },
     "retina_detect": true
+  });
+
+  // JavaScript for Smooth Page Transition
+  function loadPage(page) {
+    const contentContainer = document.getElementById('content-container');
+    contentContainer.style.opacity = 0; // Fade out the current content
+    
+    setTimeout(() => {
+      window.location.href = page; // After the fade-out, navigate to the new page
+    }, 500); // Wait for fade-out to complete
+  }
+
+  // Apply fade-in effect after the page is loaded
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
   });
 </script>
 
