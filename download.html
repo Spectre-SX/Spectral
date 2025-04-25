@@ -4,11 +4,37 @@
   <meta charset="UTF-8">
   <title>Spectral</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: #121212;
       color: white;
+      background: #121212;
+      overflow-x: hidden;
+    }
+
+    /* 🔥 Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(270deg, #6a00ff, #00e0ff, #8e2de2, #ff6a00);
+      background-size: 800% 800%;
+      animation: gradientMove 20s ease infinite;
+      z-index: -1;
+      opacity: 0.2;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     nav {
@@ -16,7 +42,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 50px;
-      background: #121212;
+      background: rgba(18, 18, 18, 0.9);
     }
 
     nav a {
@@ -54,8 +80,8 @@
       flex-wrap: wrap;
     }
 
-    .features, .updates {
-      background: #1e1e1e;
+    .features {
+      background: rgba(30, 30, 30, 0.85);
       padding: 30px;
       border-radius: 15px;
       flex: 1;
@@ -90,13 +116,6 @@
 
     .download-btn:hover {
       background: #666;
-    }
-
-    .update-item {
-      background: #2a2a2a;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 5px;
     }
 
     .lang-btn {
@@ -160,11 +179,11 @@
       </div>
     </div>
 
-    <!-- Buttons to trigger download of zip files -->
-    <a href="path_to_advice_zip_file.zip" download="Advice.zip">
+    <!-- ✅ Replace these hrefs with actual zip paths -->
+    <a href="files/Advice.zip" download="Advice.zip">
       <button class="download-btn">Download Advice</button>
     </a>
-    <a href="path_to_website_list_zip_file.zip" download="WebsiteList.zip">
+    <a href="files/WebsiteList.zip" download="WebsiteList.zip">
       <button class="download-btn">Download Website List</button>
     </a>
   </div>
