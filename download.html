@@ -16,7 +16,8 @@
       color: white;
       background: #121212;
       overflow-x: hidden;
-      transition: background-color 0.3s ease; /* Smooth transition for background */
+      opacity: 0;  /* Initially hidden */
+      transition: opacity 2s ease-in-out; /* Fade-in transition */
     }
 
     /* 🔥 Animated background */
@@ -30,6 +31,7 @@
       animation: gradientMove 20s ease infinite;
       z-index: -1;
       opacity: 0.2;
+      transition: opacity 1s ease-in-out;
     }
 
     @keyframes gradientMove {
@@ -44,7 +46,6 @@
       align-items: center;
       padding: 20px 50px;
       background: rgba(18, 18, 18, 0.9);
-      transition: background-color 0.3s ease; /* Smooth transition for navbar */
     }
 
     nav a {
@@ -52,30 +53,26 @@
       text-decoration: none;
       margin: 0 15px;
       font-weight: bold;
-      transition: color 0.3s, transform 0.3s ease; /* Smooth link hover transition */
+      transition: color 0.3s;
     }
 
     nav a:hover {
       color: #888;
-      transform: scale(1.1); /* Scaling effect on hover */
     }
 
     .hero {
       text-align: center;
       padding: 100px 20px 50px;
-      transition: transform 0.3s ease; /* Smooth transition for hero section */
     }
 
     .hero h1 {
       font-size: 48px;
-      transition: transform 0.3s ease;
     }
 
     .hero p {
       margin-top: 10px;
       font-size: 18px;
       color: #aaa;
-      transition: color 0.3s ease;
     }
 
     .container {
@@ -84,7 +81,6 @@
       gap: 40px;
       padding: 50px;
       flex-wrap: wrap;
-      transition: transform 0.3s ease; /* Smooth transition for container */
     }
 
     .features {
@@ -93,7 +89,6 @@
       border-radius: 15px;
       flex: 1;
       min-width: 300px;
-      transition: background 0.3s ease; /* Smooth background transition */
     }
 
     .feature-item {
@@ -102,7 +97,7 @@
       border-radius: 10px;
       flex: 1;
       text-align: center;
-      transition: transform 0.3s ease, background 0.3s ease; /* Smooth transition on hover */
+      transition: transform 0.3s ease, background 0.3s ease;
     }
 
     .feature-item:hover {
@@ -119,12 +114,11 @@
       font-size: 16px;
       margin-top: 20px;
       cursor: pointer;
-      transition: background 0.3s, transform 0.3s ease; /* Smooth transition for button */
+      transition: background 0.3s;
     }
 
     .download-btn:hover {
       background: #666;
-      transform: translateY(-5px); /* Slight upward movement on hover */
     }
 
     .lang-btn {
@@ -135,69 +129,75 @@
       padding: 10px 15px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s, transform 0.3s ease;
-      margin-left: 15px;
+      transition: background 0.3s;
     }
 
     .lang-btn:hover {
       background: #555;
-      transform: scale(1.1); /* Scaling effect on hover */
     }
+
   </style>
 </head>
-<body>
+<body onload="fadeInPage()">
 
-<nav>
-  <div class="logo">✨ Spectral</div>
-  <div class="links">
-    <a href="index.html">Home</a>
-    <a href="help.html">Help</a>
-    <a href="executor.html">Other</a>
-    <a href="download.html" class="active">Download</a>
-    <a href="credits.html">Credits</a>
-    <a href="donate.html">Donate</a>
-  </div>
-  <div class="discord-link">
-    <a href="https://discord.gg/5UtAzyu8E5" target="_blank">Join Discord</a>
-  </div>
-  <div>
-    <button class="lang-btn" onclick="window.location.href='index1.html'">Polish Version</button>
-  </div>
-</nav>
-
-<section class="hero">
-  <h1>Spectral</h1>
-  <p>Experience the best advice possible.</p>
-</section>
-
-<section class="container">
-  <div class="features">
-    <h2>Spectral</h2>
-    <p>✨ Download the files below:</p>
-    <div class="container" style="gap: 20px;">
-      <div class="feature-item">
-        <h3>Good Information</h3>
-        <p>Try our best information out!</p>
-      </div>
-      <div class="feature-item">
-        <h3>Actual Info</h3>
-        <p>We provide REAL information!</p>
-      </div>
-      <div class="feature-item">
-        <h3>Community</h3>
-        <p>We have a great community! One person tho :( </p>
-      </div>
+  <nav>
+    <div class="logo">✨ Spectral</div>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="help.html">Help</a>
+      <a href="executor.html">Other</a>
+      <a href="download.html" class="active">Download</a>
+      <a href="credits.html">Credits</a>
+      <a href="donate.html">Donate</a>
     </div>
+    <div class="discord-link">
+      <a href="https://discord.gg/5UtAzyu8E5" target="_blank">Join Discord</a>
+    </div>
+    <div>
+      <button class="lang-btn" onclick="window.location.href='index1.html'">Polish Version</button>
+    </div>
+  </nav>
 
-    <!-- ✅ Replace these hrefs with actual zip paths -->
-    <a href="https://github.com/Spectre-SX/Spectral/raw/refs/heads/files/Advice.zip" download="Advice.zip">
-      <button class="download-btn">Download Advice</button>
-    </a>
-    <a href="https://github.com/Spectre-SX/Spectral/raw/refs/heads/files/WebsiteList.zip" download="WebsiteList.zip">
-      <button class="download-btn">Download Website List</button>
-    </a>
-  </div>
-</section>
+  <section class="hero">
+    <h1>Spectral</h1>
+    <p>Experience the best advice possible.</p>
+  </section>
+
+  <section class="container">
+    <div class="features">
+      <h2>Spectral</h2>
+      <p>✨ Download the files below:</p>
+      <div class="container" style="gap: 20px;">
+        <div class="feature-item">
+          <h3>Good Information</h3>
+          <p>Try our best information out!</p>
+        </div>
+        <div class="feature-item">
+          <h3>Actual Info</h3>
+          <p>We provide REAL information!</p>
+        </div>
+        <div class="feature-item">
+          <h3>Community</h3>
+          <p>We have a great community! One person tho :( </p>
+        </div>
+      </div>
+
+      <!-- ✅ Replace these hrefs with actual zip paths -->
+      <a href="https://github.com/Spectre-SX/Spectral/raw/refs/heads/files/Advice.zip" download="Advice.zip">
+        <button class="download-btn">Download Advice</button>
+      </a>
+      <a href="https://github.com/Spectre-SX/Spectral/raw/refs/heads/files/WebsiteList.zip" download="WebsiteList.zip">
+        <button class="download-btn">Download Website List</button>
+      </a>
+    </div>
+  </section>
+
+  <script>
+    // Fade-in the page when it's loaded
+    function fadeInPage() {
+      document.body.style.opacity = 1;
+    }
+  </script>
 
 </body>
 </html>
