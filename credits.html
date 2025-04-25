@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Spectral</title>
+  <title>Credits - Spectral</title>
 
   <!-- ✨ particles.js -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -67,7 +67,7 @@
       color: #aaa;
     }
 
-    .container {
+    .credits-container {
       display: flex;
       justify-content: center;
       gap: 40px;
@@ -75,7 +75,7 @@
       flex-wrap: wrap;
     }
 
-    .features, .updates {
+    .credits-box {
       background: #1e1e1e;
       padding: 30px;
       border-radius: 15px;
@@ -83,41 +83,17 @@
       min-width: 300px;
     }
 
-    .feature-item {
+    .credits-item {
       background: #2a2a2a;
       padding: 20px;
       border-radius: 10px;
       flex: 1;
       text-align: center;
-      transition: transform 0.3s ease, background 0.3s ease;
+      margin-bottom: 15px;
     }
 
-    .feature-item:hover {
-      transform: scale(1.05);
-      background: #333;
-    }
-
-    .download-btn {
-      background: #444;
-      color: white;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      margin-top: 20px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .download-btn:hover {
-      background: #666;
-    }
-
-    .update-item {
-      background: #2a2a2a;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 5px;
+    .credits-item h3 {
+      margin-top: 0;
     }
 
     .lang-btn {
@@ -136,24 +112,22 @@
       background: #555;
     }
 
-    /* 🌟 Credits Section */
-    .credits {
-      background: #1e1e1e;
+    .back-btn {
+      background: #444;
       color: white;
-      padding: 40px 20px;
-      text-align: center;
-      margin-top: 40px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+      transition: background 0.3s;
     }
 
-    .credits h2 {
-      font-size: 32px;
-      margin-bottom: 20px;
+    .back-btn:hover {
+      background: #666;
     }
 
-    .credits p {
-      font-size: 18px;
-      color: #aaa;
-    }
   </style>
 </head>
 <body>
@@ -168,8 +142,8 @@
     <a href="index.html" onclick="loadPage('index.html')">Home</a>
     <a href="help.html" onclick="loadPage('help.html')">Help</a>
     <a href="executor.html" onclick="loadPage('executor.html')">Other</a>
-    <a href="download.html" class="active" onclick="loadPage('download.html')">Download</a>
-    <a href="credits.html" onclick="loadPage('credits.html')">Credits</a>
+    <a href="download.html" onclick="loadPage('download.html')">Download</a>
+    <a href="credits.html" class="active" onclick="loadPage('credits.html')">Credits</a>
     <a href="donate.html" onclick="loadPage('donate.html')">Donate</a>
   </div>
   <div class="discord-link">
@@ -182,53 +156,51 @@
 
 <!-- 🦾 Hero -->
 <section class="hero">
-  <h1>Spectral</h1>
-  <p>Experience the best advice possible.</p>
+  <h1>Credits</h1>
+  <p>Thank you to all contributors and supporters!</p>
 </section>
 
 <!-- 📦 Content -->
-<section class="container" id="content-container">
-  <div class="features">
-    <h2>Spectral</h2>
-    <p>✨ Latest Updates</p>
-    <div class="container" style="gap: 20px;">
-      <div class="feature-item">
-        <h3>Good Information</h3>
-        <p>Try our best information out!</p>
-      </div>
-      <div class="feature-item">
-        <h3>Actual Info</h3>
-        <p>We provide REAL information!</p>
-      </div>
-      <div class="feature-item">
-        <h3>Community</h3>
-        <p>We have a great community! One person tho :(</p>
-      </div>
+<section class="credits-container">
+  <div class="credits-box">
+    <h2>Development</h2>
+    <div class="credits-item">
+      <h3>John Doe</h3>
+      <p>Lead Developer</p>
     </div>
-    <button class="download-btn">Download Now →</button>
+    <div class="credits-item">
+      <h3>Jane Smith</h3>
+      <p>Frontend Developer</p>
+    </div>
+    <div class="credits-item">
+      <h3>Mike Johnson</h3>
+      <p>Backend Developer</p>
+    </div>
   </div>
 
-  <div class="updates">
-    <h2>Latest Updates</h2>
-    <div class="update-item">Added horror advice!</div>
-    <div class="update-item">Added some scripts 👀</div>
-    <div class="update-item">No :(</div>
-    <div class="update-item">Added fun websites!</div>
+  <div class="credits-box">
+    <h2>Design</h2>
+    <div class="credits-item">
+      <h3>Amy Green</h3>
+      <p>UI/UX Designer</p>
+    </div>
+    <div class="credits-item">
+      <h3>Emily Davis</h3>
+      <p>Graphic Designer</p>
+    </div>
   </div>
-</section>
 
-<!-- 🌟 Credits Section -->
-<section class="credits">
-  <h2>Credits</h2>
-  <p>Special thanks to the following people for their contributions:</p>
-  <ul>
-    <li><strong>John Doe</strong> - Lead Developer</li>
-    <li><strong>Jane Smith</strong> - UI/UX Designer</li>
-    <li><strong>OpenAI</strong> - For providing the amazing ChatGPT API!</li>
-    <li><strong>Particles.js</strong> - For the awesome particle background effect!</li>
-    <li><strong>GitHub</strong> - For hosting our repository and files</li>
-  </ul>
-  <p>Thanks to everyone involved in bringing Spectral to life! ✨</p>
+  <div class="credits-box">
+    <h2>Support</h2>
+    <div class="credits-item">
+      <h3>Chris White</h3>
+      <p>Community Manager</p>
+    </div>
+    <div class="credits-item">
+      <h3>Sarah Lee</h3>
+      <p>QA Specialist</p>
+    </div>
+  </div>
 </section>
 
 <!-- 💫 Particle Config -->
