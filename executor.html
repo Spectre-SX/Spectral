@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Solar System Tracker (Speed + Zoom!)</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #solarSystem {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #info {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      white-space: pre-line;
+      z-index: 10;
+    }
+
+    #controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      padding: 10px 20px;
+      border-radius: 10px;
+      color: white;
+      text-align: center;
+      z-index: 10;
+    }
+
+    input[type="range"] {
+      width: 300px;
+      margin: 10px 0;
+    }
+
+    /* Spectral Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #111;
+      padding: 15px 30px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 24px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .links a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    .links a:hover {
+      color: #f0f0f0;
+    }
+
+    .links a.active {
+      color: #00b0ff;
+    }
+
+    .discord-link a {
+      background-color: #7289da;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-left: 30px;
+      transition: background-color 0.3s ease;
+    }
+
+    .discord-link a:hover {
+      background-color: #5a6b9f;
+    }
+
+    .lang-btn {
+      background-color: #444;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .lang-btn:hover {
+      background-color: #555;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- Spectral Navbar -->
+<nav>
+  <div class="logo">✨ Spectral</div>
+  <div class="links">
+    <a href="index.html" onclick="loadPage('index.html')">Home</a>
+    <a href="help.html" onclick="loadPage('help.html')">Help</a>
+    <a href="executor.html" class="active" onclick="loadPage('executor.html')">Other</a> <!-- Active here -->
+    <a href="download.html" onclick="loadPage('download.html')">Download</a>
+    <a href="credits.html" onclick="loadPage('credits.html')">Credits</a>
+    <a href="donate.html" onclick="loadPage('donate.html')">Donate</a>
+  </div>
+  <div class="discord-link">
+    <a href="https://discord.gg/5UtAzyu8E5" target="_blank">Join Discord</a>
+  </div>
+  <div>
+    <button class="lang-btn" onclick="window.location.href='index1.html'">Polish Version</button>
+  </div>
+</nav>
+
+<canvas id="solarSystem"></canvas>
+
+<div id="info">🌞 Click a planet!</div>
+<div id="controls">
+  🚀 Speed: <input type="range" id="speedSlider" min="0" max="5" step="0.01" value="1"><br>
+  🔍 Zoom: <input type="range" id="zoomSlider" min="0.5" max="2" step="0.01" value="1">
+</div>
+
+<script>
+// Placeholder for loadPage function
+function loadPage(url) {
+  window.location.href = url;
+}
+
+const canvas = document.getElementById('solarSystem');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const sun = { x: canvas.width / 2, y: canvas.height / 2, size: 40, color: 'yellow' };
+
+// Background stars ✨
+const stars = Array.from({length: 500}, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  size: Math.random() * 1.5,
+  opacity: Math.random()
+}));
+
+const planets = [
+  { id: 'mercury', name: 'Mercury', distanceX: 60, distanceY: 40, size: 4, speed: 0.04, dayLength: 1407, color: '#bbb' },
+  { id: 'venus', name: 'Venus', distanceX: 90, distanceY: 60, size: 7, speed: 0.03, dayLength: 5832, color: '#e0c28c' },
+  { id: 'earth', name: 'Earth', distanceX: 130, distanceY: 80, size: 8, speed: 0.02, dayLength: 24, color: '#2a75bb', moons: [
+    { name: 'Moon', distance: 15, size: 2, speed: 0.1 }
+  ]},
+  { id: 'mars', name: 'Mars', distanceX: 170, distanceY: 110, size: 6, speed: 0.015, dayLength: 25, color: '#c1440e' },
+  { id: 'jupiter', name: 'Jupiter', distanceX: 230, distanceY: 150, size: 20, speed: 0.008, dayLength: 10, color: '#d9b38c' },
+  { id: 'saturn', name: 'Saturn', distanceX: 300, distanceY: 200, size: 17, speed: 0.006, dayLength: 10, color: '#f5deb3' },
+  { id: 'uranus', name: 'Uranus', distanceX: 370, distanceY: 250, size: 14, speed: 0.004, dayLength: 17, color: '#a0e7e5' },
+  { id: 'neptune', name: 'Neptune', distanceX: 430, distanceY: 300, size: 13, speed: 0.003, dayLength: 16, color: '#4b70dd' }
+];
+
+let time = 0;
+let speedMultiplier = 1;
+let zoomMultiplier = 1;
+
+// draw the system
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // draw background stars
+  stars.forEach(star => {
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
+    ctx.fill();
+  });
+
+  // draw sun
+  ctx.beginPath();
+  ctx.arc(sun.x, sun.y, sun.size * zoomMultiplier, 0, Math.PI * 2);
+  ctx.fillStyle = sun.color;
+  ctx.fill();
+
+  // draw orbits
+  ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+  planets.forEach(planet => {
+    ctx.beginPath();
+    ctx.ellipse(sun.x, sun.y, planet.distanceX * zoomMultiplier, planet.distanceY * zoomMultiplier, 0, 0, Math.PI * 2);
+    ctx.stroke();
+  });
+
+  // draw planets
+  planets.forEach(planet => {
+    const angle = time * planet.speed;
+    const x = sun.x + planet.distanceX * zoomMultiplier * Math.cos(angle);
+    const y = sun.y + planet.distanceY * zoomMultiplier * Math.sin(angle);
+
+    ctx.beginPath();
+    ctx.arc(x, y, planet.size * zoomMultiplier, 0, Math.PI * 2);
+    ctx.fillStyle = planet.color;
+    ctx.fill();
+
+    planet.x = x;
+    planet.y = y;
+
+    // draw moons
+    if (planet.moons) {
+      planet.moons.forEach(moon => {
+        const moonAngle = time * moon.speed;
+        const mx = x + moon.distance * zoomMultiplier * Math.cos(moonAngle);
+        const my = y + moon.distance * zoomMultiplier * Math.sin(moonAngle);
+
+        ctx.beginPath();
+        ctx.arc(mx, my, moon.size * zoomMultiplier, 0, Math.PI * 2);
+        ctx.fillStyle = '#aaa';
+        ctx.fill();
+
+        moon.x = mx;
+        moon.y = my;
+      });
+    }
+  });
+
+  time += speedMultiplier;
+  requestAnimationFrame(draw);
+}
+draw();
+
+// click detection
+canvas.addEventListener('click', function(e) {
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
+
+  planets.forEach(planet => {
+    const dx = mouseX - planet.x;
+    const dy = mouseY - planet.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    if (distance < planet.size * zoomMultiplier + 5) {
+      document.getElementById('info').innerText =
+      `🌎 ${planet.name}\n🕰 Day Length: ${planet.dayLength} hours`;
+    }
+  });
+});
+
+// speed slider
+document.getElementById('speedSlider').addEventListener('input', function(e) {
+  speedMultiplier = parseFloat(e.target.value);
+});
+
+// zoom slider
+document.getElementById('zoomSlider').addEventListener('input', function(e) {
+  zoomMultiplier = parseFloat(e.target.value);
+});
+
+</script>
+</body>
+</html>
