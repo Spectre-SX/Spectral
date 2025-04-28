@@ -7,6 +7,53 @@
   <!-- ✨ particles.js -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Import Firebase functions
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getDatabase, ref, get, set, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDG05fTrg2hGGWhPYVuTI893-SdCs-BIy8",
+      authDomain: "spectral-8f198.firebaseapp.com",
+      databaseURL: "https://spectral-8f198-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "spectral-8f198",
+      storageBucket: "spectral-8f198.firebasestorage.app",
+      messagingSenderId: "381743131820",
+      appId: "1:381743131820:web:f827060f039d1371438309",
+      measurementId: "G-4NFX3V1MTH"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Reference to the visitor counter in Firebase
+    const counterRef = ref(db, 'visitorCounter');
+
+    // Get current visitor count and increment
+    window.addEventListener('load', () => {
+      get(counterRef)
+        .then(snapshot => {
+          if (snapshot.exists()) {
+            let currentCount = snapshot.val();
+            document.getElementById('visitor-counter').innerText = `👥 Visitors: ${currentCount}`;
+            // Increment the counter in the database
+            set(counterRef, currentCount + 1);
+          } else {
+            // If no counter exists, create and set it
+            set(counterRef, 1);
+            document.getElementById('visitor-counter').innerText = `👥 Visitors: 1`;
+          }
+        })
+        .catch(error => {
+          console.error("Error getting visitor counter:", error);
+          document.getElementById('visitor-counter').innerText = '👥 Visitors: N/A';
+        });
+    });
+  </script>
+
   <style>
     /* 🌌 Animated Background */
     #particles-js {
@@ -259,23 +306,6 @@
   window.addEventListener('load', () => {
     document.body.classList.add('loaded');
   });
-
-  // 👥 Visitor Counter Logic
-  const counterNamespace = "spectralWebsite";
-  const counterKey = "visitorCounter";
-
-  fetch(`https://api.countapi.xyz/create?namespace=${counterNamespace}&key=${counterKey}&value=0`)
-    .catch(() => {}); // ignore error if already exists
-
-  fetch(`https://api.countapi.xyz/hit/${counterNamespace}/${counterKey}`)
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('visitor-counter').innerText = `👥 Visitors: ${data.value}`;
-    })
-    .catch(error => {
-      console.error('Visitor Counter Error:', error);
-      document.getElementById('visitor-counter').innerText = `👥 Visitors: N/A`;
-    });
 </script>
 
 </body>
