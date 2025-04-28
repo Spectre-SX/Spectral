@@ -7,63 +7,142 @@
   <!-- ✨ particles.js -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
-  <!-- Firebase SDKs -->
-  <script type="module">
-    // 🌟 Import Firebase SDKs
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getDatabase, ref, get, set, update, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
-
-    // 🔥 Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyDG05fTrg2hGGWhPYVuTI893-SdCs-BIy8",
-      authDomain: "spectral-8f198.firebaseapp.com",
-      databaseURL: "https://spectral-8f198-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "spectral-8f198",
-      storageBucket: "spectral-8f198.appspot.com",
-      messagingSenderId: "381743131820",
-      appId: "1:381743131820:web:f827060f039d1371438309",
-      measurementId: "G-4NFX3V1MTH"
-    };
-
-    // 🚀 Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
-    const analytics = getAnalytics(app);
-
-    // 👥 Visitor Counter Logic
-    const counterRef = ref(database, 'visitorCounter');
-
-    // Update visitor count 🔥
-    get(counterRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          // if counter exists ➡️ increment it
-          update(counterRef, {
-            count: increment(1)
-          });
-        } else {
-          // if counter DOESN'T exist ➡️ set it to 1
-          set(counterRef, {
-            count: 1
-          });
-        }
-      })
-      .catch((error) => {
-        console.error("Error reading counter:", error);
-      });
-
-    // Listen for changes and update the counter live 🚀
-    import { onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
-    onValue(counterRef, (snapshot) => {
-      const data = snapshot.val();
-      document.getElementById('visitor-counter').innerText = `👥 Visitors: ${data.count}`;
-    });
-
-  </script>
-
   <style>
-    /* (your full CSS stays the same, skipping here to save scrolling) */
+    /* 🌌 Animated Background */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: #121212;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: white;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: transparent;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #888;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px 50px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+    }
+
+    .hero p {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #aaa;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 50px;
+      flex-wrap: wrap;
+    }
+
+    .features, .updates {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 15px;
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .feature-item {
+      background: #2a2a2a;
+      padding: 20px;
+      border-radius: 10px;
+      flex: 1;
+      text-align: center;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .feature-item:hover {
+      transform: scale(1.05);
+      background: #333;
+    }
+
+    .download-btn {
+      background: #444;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .download-btn:hover {
+      background: #666;
+    }
+
+    .update-item {
+      background: #2a2a2a;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+
+    .lang-btn {
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+      margin-left: 15px;
+    }
+
+    .lang-btn:hover {
+      background: #555;
+    }
+
+    /* 👥 Visitor Counter Style */
+    #visitor-counter {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 20px;
+      color: #bbb;
+    }
   </style>
 </head>
 
@@ -74,7 +153,21 @@
 
 <!-- 🧭 Navbar -->
 <nav>
-  <!-- (your navbar code) -->
+  <div class="logo">✨ Spectral</div>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="help.html">Help</a>
+    <a href="executor.html">Other</a>
+    <a href="download.html">Download</a>
+    <a href="credits.html">Credits</a>
+    <a href="donate.html">Donate</a>
+  </div>
+  <div class="discord-link">
+    <a href="https://discord.gg/5UtAzyu8E5" target="_blank">Join Discord</a>
+  </div>
+  <div>
+    <button class="lang-btn" onclick="window.location.href='index1.html'">Polish Version</button>
+  </div>
 </nav>
 
 <!-- 🎶 Music -->
@@ -91,7 +184,33 @@
 
 <!-- 📦 Features & Updates -->
 <section class="container" id="content-container">
-  <!-- (your features and updates code) -->
+  <div class="features">
+    <h2>Spectral</h2>
+    <p>✨ Latest Updates</p>
+    <div class="container" style="gap: 20px;">
+      <div class="feature-item">
+        <h3>Good Information</h3>
+        <p>Try our best information out!</p>
+      </div>
+      <div class="feature-item">
+        <h3>Original Projects</h3>
+        <p>We provide original projects!</p>
+      </div>
+      <div class="feature-item">
+        <h3>Community</h3>
+        <p>We have a great community! Join to find out more :)</p>
+      </div>
+    </div>
+    <button class="download-btn">Download Now →</button>
+  </div>
+
+  <div class="updates">
+    <h2>Latest Updates</h2>
+    <div class="update-item">Added horror advice!</div>
+    <div class="update-item">Added some scripts 👀</div>
+    <div class="update-item">No :(</div>
+    <div class="update-item">Added fun websites!</div>
+  </div>
 </section>
 
 <!-- 👥 Visitor Counter -->
@@ -140,6 +259,23 @@
   window.addEventListener('load', () => {
     document.body.classList.add('loaded');
   });
+
+  // 👥 Visitor Counter Logic
+  const counterNamespace = "spectralWebsite";
+  const counterKey = "visitorCounter";
+
+  fetch(`https://api.countapi.xyz/create?namespace=${counterNamespace}&key=${counterKey}&value=0`)
+    .catch(() => {}); // ignore error if already exists
+
+  fetch(`https://api.countapi.xyz/hit/${counterNamespace}/${counterKey}`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('visitor-counter').innerText = `👥 Visitors: ${data.value}`;
+    })
+    .catch(error => {
+      console.error('Visitor Counter Error:', error);
+      document.getElementById('visitor-counter').innerText = `👥 Visitors: N/A`;
+    });
 </script>
 
 </body>
