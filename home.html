@@ -136,6 +136,14 @@
       background: #555;
     }
 
+    /* 👥 Visitor Counter Style */
+    #visitor-counter {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 20px;
+      color: #bbb;
+    }
+
   </style>
 </head>
 <body>
@@ -162,13 +170,11 @@
   </div>
 </nav>
 
-  <!-- Music -->
-
+<!-- 🎶 Music -->
 <audio autoplay loop>
-    <source src="https://github.com/Spectre-SX/Spectral/raw/refs/heads/files/Space%20Jazz.mp3" type="audio/mpeg">
-    Your browser does not support the audio tag.
+  <source src="https://github.com/Spectre-SX/Spectral/raw/refs/heads/files/Space%20Jazz.mp3" type="audio/mpeg">
+  Your browser does not support the audio tag.
 </audio>
-
 
 <!-- 🦾 Hero -->
 <section class="hero">
@@ -207,8 +213,14 @@
   </div>
 </section>
 
-<!-- 💫 Particle Config -->
+<!-- 👥 Visitor Counter -->
+<div id="visitor-counter">
+  Visitors: Loading...
+</div>
+
+<!-- 💫 Particle Config and Scripts -->
 <script>
+  // 🌌 Particle Config
   particlesJS("particles-js", {
     "particles": {
       "number": {
@@ -257,20 +269,32 @@
     "retina_detect": true
   });
 
-  // JavaScript for Smooth Page Transition
+  // ✨ Smooth Page Transition
   function loadPage(page) {
     const contentContainer = document.getElementById('content-container');
-    contentContainer.style.opacity = 0; // Fade out the current content
-    
+    contentContainer.style.opacity = 0; 
     setTimeout(() => {
-      window.location.href = page; // After the fade-out, navigate to the new page
-    }, 500); // Wait for fade-out to complete
+      window.location.href = page;
+    }, 500);
   }
 
-  // Apply fade-in effect after the page is loaded
+  // ✨ Fade In Page
   window.addEventListener('load', () => {
     document.body.classList.add('loaded');
   });
+
+  // 👥 Visitor Counter Script
+  const counterNamespace = "spectralWebsite"; 
+  const counterKey = "visitorCounter"; 
+
+  fetch(`https://api.countapi.xyz/create?namespace=${counterNamespace}&key=${counterKey}&value=0`)
+    .catch(() => {}); // Ignore if exists
+
+  fetch(`https://api.countapi.xyz/hit/${counterNamespace}/${counterKey}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('visitor-counter').innerText = `👥 Visitors: ${data.value}`;
+    });
 </script>
 
 </body>
