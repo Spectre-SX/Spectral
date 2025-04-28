@@ -3,10 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <title>Spectral - Loading...</title>
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
+
+  <!-- Firebase SDK (Updated to Modular Import) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDG05fTrg2hGGWhPYVuTI893-SdCs-BIy8",
+      authDomain: "spectral-8f198.firebaseapp.com",
+      databaseURL: "https://spectral-8f198-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "spectral-8f198",
+      storageBucket: "spectral-8f198.appspot.com",
+      messagingSenderId: "381743131820",
+      appId: "1:381743131820:web:f827060f039d1371438309",
+      measurementId: "G-4NFX3V1MTH"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Update Visitor Counter
+    const counterRef = ref(db, 'visitorCount');
+
+    get(counterRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        const currentCount = snapshot.val();
+        const newCount = currentCount + 1;
+        set(counterRef, newCount);
+        document.getElementById('visitor-counter').innerText = `Visitors: ${newCount}`;
+      } else {
+        set(counterRef, 1);
+        document.getElementById('visitor-counter').innerText = `Visitors: 1`;
+      }
+    }).catch((error) => {
+      console.error('Error:', error);
+      document.getElementById('visitor-counter').innerText = 'Visitors: Error';
+    });
+
+    // Redirect after 3 seconds
+    setTimeout(() => {
+      window.location.href = "home.html";
+    }, 3000);
+  </script>
 
   <style>
     body {
@@ -66,37 +106,18 @@
       opacity: 0.6;
     }
   </style>
+
 </head>
 <body>
 
-<div class="loader">
-  <div class="dot"></div>
-  <div class="dot"></div>
-  <div class="dot"></div>
-</div>
+  <div class="loader">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
 
-<div class="loading-text">Loading Spectral...</div>
-<div class="counter" id="visitor-counter">Visitors: Loading...</div>
-
-<script>
-// Visitor Counter Setup
-const counterNamespace = "spectralWebsite"; 
-const counterKey = "visitorCounter"; 
-
-fetch(`https://api.countapi.xyz/create?namespace=${counterNamespace}&key=${counterKey}&value=0`)
-  .catch(() => {}); // ignore error if already exists
-
-fetch(`https://api.countapi.xyz/hit/${counterNamespace}/${counterKey}`)
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById('visitor-counter').innerText = `Visitors: ${data.value}`;
-  });
-
-// Redirect after 3 seconds
-setTimeout(() => {
-  window.location.href = "home.html";
-}, 3000);
-</script>
+  <div class="loading-text">Loading Spectral...</div>
+  <div class="counter" id="visitor-counter">Visitors: Loading...</div>
 
 </body>
 </html>
