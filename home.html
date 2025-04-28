@@ -143,9 +143,9 @@
       font-size: 20px;
       color: #bbb;
     }
-
   </style>
 </head>
+
 <body>
 
 <!-- 🌌 Particle Background -->
@@ -155,12 +155,12 @@
 <nav>
   <div class="logo">✨ Spectral</div>
   <div class="links">
-    <a href="index.html" onclick="loadPage('index.html')">Home</a>
-    <a href="help.html" onclick="loadPage('help.html')">Help</a>
-    <a href="executor.html" onclick="loadPage('executor.html')">Other</a>
-    <a href="download.html" class="active" onclick="loadPage('download.html')">Download</a>
-    <a href="credits.html" onclick="loadPage('credits.html')">Credits</a>
-    <a href="donate.html" onclick="loadPage('donate.html')">Donate</a>
+    <a href="index.html">Home</a>
+    <a href="help.html">Help</a>
+    <a href="executor.html">Other</a>
+    <a href="download.html">Download</a>
+    <a href="credits.html">Credits</a>
+    <a href="donate.html">Donate</a>
   </div>
   <div class="discord-link">
     <a href="https://discord.gg/5UtAzyu8E5" target="_blank">Join Discord</a>
@@ -176,13 +176,13 @@
   Your browser does not support the audio tag.
 </audio>
 
-<!-- 🦾 Hero -->
+<!-- 🦾 Hero Section -->
 <section class="hero">
   <h1>Spectral</h1>
   <p>Experience the best website possible.</p>
 </section>
 
-<!-- 📦 Content -->
+<!-- 📦 Features & Updates -->
 <section class="container" id="content-container">
   <div class="features">
     <h2>Spectral</h2>
@@ -220,26 +220,14 @@
 
 <!-- 💫 Particle Config and Scripts -->
 <script>
-  // 🌌 Particle Config
+  // 🌌 Particle Background Setup
   particlesJS("particles-js", {
     "particles": {
-      "number": {
-        "value": 90,
-        "density": { "enable": true, "value_area": 800 }
-      },
+      "number": { "value": 90, "density": { "enable": true, "value_area": 800 } },
       "color": { "value": "#ffffff" },
-      "shape": {
-        "type": "circle",
-        "stroke": { "width": 0, "color": "#000000" }
-      },
-      "opacity": {
-        "value": 0.2,
-        "random": true
-      },
-      "size": {
-        "value": 2.5,
-        "random": true
-      },
+      "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
+      "opacity": { "value": 0.2, "random": true },
+      "size": { "value": 2.5, "random": true },
       "line_linked": {
         "enable": true,
         "distance": 130,
@@ -250,8 +238,6 @@
       "move": {
         "enable": true,
         "speed": 1.6,
-        "direction": "none",
-        "random": false,
         "out_mode": "bounce"
       }
     },
@@ -269,31 +255,26 @@
     "retina_detect": true
   });
 
-  // ✨ Smooth Page Transition
-  function loadPage(page) {
-    const contentContainer = document.getElementById('content-container');
-    contentContainer.style.opacity = 0; 
-    setTimeout(() => {
-      window.location.href = page;
-    }, 500);
-  }
-
   // ✨ Fade In Page
   window.addEventListener('load', () => {
     document.body.classList.add('loaded');
   });
 
-  // 👥 Visitor Counter Script
-  const counterNamespace = "spectralWebsite"; 
-  const counterKey = "visitorCounter"; 
+  // 👥 Visitor Counter Logic
+  const counterNamespace = "spectralWebsite";
+  const counterKey = "visitorCounter";
 
   fetch(`https://api.countapi.xyz/create?namespace=${counterNamespace}&key=${counterKey}&value=0`)
-    .catch(() => {}); // Ignore if exists
+    .catch(() => {}); // ignore error if already exists
 
   fetch(`https://api.countapi.xyz/hit/${counterNamespace}/${counterKey}`)
-    .then(res => res.json())
+    .then(response => response.json())
     .then(data => {
       document.getElementById('visitor-counter').innerText = `👥 Visitors: ${data.value}`;
+    })
+    .catch(error => {
+      console.error('Visitor Counter Error:', error);
+      document.getElementById('visitor-counter').innerText = `👥 Visitors: N/A`;
     });
 </script>
 
